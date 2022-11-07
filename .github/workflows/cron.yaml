@@ -1,0 +1,14 @@
+name: daily-cron
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call our API route
+        run: |
+          curl --request POST \
+          --url 'https://daily-mix-saver.vercel.app/api/save' \
+          --header 'Authorization: Bearer ${{ secrets.API_SECRET_KEY }}'
